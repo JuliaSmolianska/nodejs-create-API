@@ -30,6 +30,15 @@ const updateById = async (req, res) => {
   res.json(updateContact);
 }
 
+const updateStatusContact = async (req, res) => {
+  const { contactId } = req.params;
+  const updateContact = await Contact.findByIdAndUpdate(contactId, req.body)
+  if (!updateContact) {
+    throw HttpError(404, `Contact with id=${contactId} not found`);
+  }
+  res.json(updateContact);
+}
+
 const deleteById = async (req, res) => {
   const { contactId } = req.params;
   const removeContact = await Contact.findByIdAndDelete(contactId)
@@ -44,5 +53,6 @@ export default {
   getContactById: ctrlWrapper(getContactById),
   addContact: ctrlWrapper(addContact),
   updateById: ctrlWrapper(updateById),
-  deleteById: ctrlWrapper(deleteById)
+  deleteById: ctrlWrapper(deleteById),
+  updateStatusContact: ctrlWrapper(updateStatusContact)
 };
