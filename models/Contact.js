@@ -7,7 +7,9 @@ const contactSchema = new Schema({
     email: { type: String },
     phone: { type: String },
     favorite: { type: Boolean, default: false }
-})
+},
+    { versionKey: false, timestamps: true }
+)
 
 contactSchema.post("save", handleSaveError);
 contactSchema.pre("findOneAndUpdate", preUpdate);
