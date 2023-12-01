@@ -2,10 +2,13 @@ import express from "express";
 import contactsController from "../../controllers/contacts_controller.js";
 import { isEmptyBody, isEmptyBodyFavorite } from "../../middlewares/isEmptyBody.js";
 import { isValidId } from "../../middlewares/isValidId.js";
-import { validateBody } from "../../decorator/ValidateBody.js";
+import { validateBody } from "../../decorator/validateBody.js";
 import { addContactSchema, updateContactSchema, updateFavoriteSchema } from "../../models/Contact.js"
+import authenticate from "../../models/authenticate.js";
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get('/', contactsController.getAllContacts);
 
