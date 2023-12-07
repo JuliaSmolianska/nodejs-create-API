@@ -1,6 +1,10 @@
 import { HttpError } from "../helpers/index.js";
 import { ctrlWrapper } from "../decorator/ctrlWrapper.js";
 import { Contact } from "../models/Contact.js";
+import fs from "fs/promises";
+import path from "path";
+
+//const avatarPath = path.resolve("public", "avatars");
 
 const getAllContacts = async (req, res) => {
   const { _id: owner } = req.user;
@@ -30,6 +34,10 @@ const getContactById = async (req, res) => {
 
 const addContact = async (req, res) => {
   const { _id: owner } = req.user;
+  /*const { path: oldPath, filename } = req.file;
+  const newPath = path.join(avatarPath, oldPath);
+  await fs.rename(oldPath, newPath);
+  const avatar = path.join("avatars", filename);*/
   const newContact = await Contact.create({ ...req.body, owner });
   res.status(201).json(newContact);
 }
@@ -53,7 +61,6 @@ const deleteById = async (req, res) => {
   }
   res.json({ message: "Deleted success" });
 }
-
 
 const updateStatusContact = async (req, res) => {
   const { contactId } = req.params;
