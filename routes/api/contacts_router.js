@@ -4,7 +4,7 @@ import { isEmptyBody, isEmptyBodyFavorite } from "../../middlewares/isEmptyBody.
 import { isValidId } from "../../middlewares/isValidId.js";
 import { validateBody } from "../../decorator/validateBody.js";
 import { addContactSchema, updateContactSchema, updateFavoriteSchema } from "../../models/Contact.js"
-import authenticate from "../../models/authenticate.js";
+import authenticate from "../../middlewares/authenticate.js";
 
 const contactsRouter = express.Router();
 
