@@ -89,8 +89,12 @@ const updateSubscription = async (req, res) => {
 
 const updateAvatar = async (req, res, next) => {
   const { _id } = req.user;
+   if (!req.file) {
+    throw new Error("No file provided for avatar update.");
+  }
   const { path: oldPath, filename } = req.file;
   const newPath = path.join(avatarsPath, filename);
+  
   (await jimp.read(oldPath)).resize(250, 250).write(oldPath);
   await fs.rename(oldPath, newPath);
   const avatarURL = path.join("avatars", filename);
